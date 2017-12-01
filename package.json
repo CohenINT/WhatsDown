@@ -1,0 +1,26 @@
+{
+  "name": "whatsdown",
+  "version": "0.0.1",
+  "description": "A Chrome extension to locally backup your WhatsApp chats",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codefeathers/whatsdown.git"
+  },
+  "keywords": [
+    "whatsapp",
+    "backup",
+    "local",
+    "chrome",
+    "extension"
+  ],
+  "author": "Muthu Kumar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codefeathers/whatsdown/issues"
+  },
+  "homepage": "https://github.com/codefeathers/whatsdown#readme"
+}

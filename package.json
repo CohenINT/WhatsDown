@@ -1,6 +1,6 @@
 {
   "name": "whatsdown",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A Chrome extension to locally backup your WhatsApp chats",
   "main": "index.js",
   "scripts": {

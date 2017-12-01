@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/codefeathers/whatsdown/issues"
   },
-  "homepage": "https://github.com/codefeathers/whatsdown#readme"
+  "homepage": "https://github.com/codefeathers/whatsdown#readme",
+  "dependencies": {
+    "puppeteer": "^0.13.0"
+  }
 }

@@ -1,10 +1,9 @@
 function injectthis() {
-	var messages = document.getElementsByClassName("bubble")
-	var messageContents = document.getElementsByClassName("selectable-text")
+	messages = document.getElementsByClassName("bubble")
 	for(var i=0; i<messages.length; i++){
-		var messageHeader = (messages[i].dataset['prePlainText']).split("]")
-		var messageContent = messageContents[i].innerText
-		var content = messageHeader + "\n" + messageContent
+		var messageHeader = (messages[i].dataset['prePlainText'])//.split("]")
+		var messageContent = messagecontent = /( -->)(.+)?(<!-- \/react-text)/g.exec(messages[i].innerHTML)
+		var content = messageHeader + "\n" + messagecontent[2]
 		console.log(content)
 	}
 }

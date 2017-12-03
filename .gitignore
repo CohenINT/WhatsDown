@@ -1,2 +1,4 @@
 node_modules
-app.js
+store/*
+server_sample
+messagesxample.js

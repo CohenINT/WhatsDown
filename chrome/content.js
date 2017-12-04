@@ -1,4 +1,27 @@
-const _class = document.getElementsByClassName.bind(document)
+var _class = (className) => {
+	return Array.prototype.slice.call(document.getElementsByClassName(className))
+}
+var _tag = (tagName) => {
+	return Array.prototype.slice.call(document.getElementsByTagName(tagName))
+}
+var _id = (idName) => {
+	return Array(document.getElementById(idName))
+}
+
+// From StackOverflow.
+function toDataURL(url, callback) {
+	var xhr = new XMLHttpRequest()
+	xhr.onload = function () {
+		var reader = new FileReader()
+		reader.onloadend = function () {
+			callback(reader.result)
+		}
+		reader.readAsDataURL(xhr.response)
+	}
+	xhr.open('GET', url)
+	xhr.responseType = 'blob'
+	xhr.send()
+}
 
 function injectthis() {
 	setTimeout(() => {
@@ -17,17 +40,32 @@ function getChatInfo() {
 	var chatType, participants, msgCount
 	if (chatInfo[1]) {
 		chatType = "Group"
-		participants = chatInfo[1]
+		participants = (chatInfo[1].split(","))
 	}
 	else chatType = "Private"
-	var chatAvatarSrc = Array.prototype.slice.call(_class("pane-header"))[1].getElementsByTagName("img")[0].src
+	var chatAvatarSrc = (_class("pane-header"))[1]
+		.getElementsByTagName("img")[0].src
 	console.log(chatAvatarSrc)
-	console.log("---------- " + chatName + " ----------")
-	if(chatType == "Group") console.log("Participants: " + String(participants))
-/*}
+	var rxGetData = /data:image\/jpeg;base64,/g
+	var chatAvatar
 
-function getCurrentChat() { */
-	var messages = Array.prototype.slice.call(document.getElementsByClassName("bubble"))
+	(async () => {
+		await toDataURL(chatAvatarSrc, (res) => {
+			chatAvatar = rxGetData.exec(res)
+		})
+		console.log(chatAvatar)
+	})()
+
+	/* toDataURL(chatAvatarSrc, (dataUrl) => {
+		chatAvatar = dataUrl.replace(rxGetData, "")
+	}).then(dataUrl => {
+		console.log(dataUrl) }) */
+	console.log("---------- " + chatName + " ----------")
+	if (chatType == "Group") console.log("Participants: " + String(participants))
+	/*}
+	
+	function getCurrentChat() { */
+	var messages = _class("bubble")
 	msgCount = 0
 
 	for (var i = 0; i < messages.length; i++) {
@@ -42,7 +80,7 @@ function getCurrentChat() { */
 				.slice(0, -1)
 				.split(',')
 			messageTime = messageHeader[0]
-			messageDate = messageHeader[1].substr(1, messageHeader[2].length)
+			messageDate = messageHeader[1].trim()
 			messageUser = messageHeader[2].trim().substr(0, messageHeader[2].length - 1)
 			Header = messageUser + ' | ' + messageDate + " : " + messageTime + "\n"
 		} else {
@@ -50,12 +88,30 @@ function getCurrentChat() { */
 		}
 
 		var msgContent = messages[i].innerText.split('\n')
-		var msgText = String(msgContent.splice(msgContent.length - 3, 1))
+
+		msgContent = msgContent.slice(0, msgContent.length - 2)
+		var msgReplyTo
+		var replyCheck = String(Array.prototype.slice.call(messages[i].getElementsByClassName("text-quote")))
+		if (replyCheck != "") {
+			var replyContent = messages[i].getElementsByClassName("text-quote")[0].innerText.trim().split("\n")
+			var replyTo = replyContent[0]
+			var replyMsg = replyContent[1]
+			msgReplyTo = "> " + replyTo + " : " + replyMsg
+		}
+		if (replyCheck == "") {
+			msgReplyTo = ""
+		}
+
+		var msgText = messages[i].querySelector(".emojitext.selectable-text.invisible-space.copyable-text")
+
+		// var msgText = String(msgContent.splice(msgContent.length - 3, 1))
 		msgText = msgText ? msgText : '<skipped>'
-		msgReplyTo = msgContent.splice(0, msgContent.length - 2)
-		if (!msgReplyTo[0]) msgReplyTo = ""
-		else msgReplyTo = "> " + msgReplyTo[0] + " : " + msgReplyTo[1] + "\n"
-		if (!msgReplyTo) msgReplyTo = ""
+
+		//msgReplyTo = msgContent.splice(0, msgContent.length - 2)
+
+		//if (!msgReplyTo[0]) msgReplyTo = ""
+		//else msgReplyTo = "> " + msgReplyTo[0] + " : " + msgReplyTo[1] + "\n"
+		//if (!msgReplyTo) msgReplyTo = ""
 
 		var content = Header + msgReplyTo + msgText
 		msgCount++
@@ -66,7 +122,7 @@ function getCurrentChat() { */
 
 function startListening() {
 	try {
-		document.getElementById("pane-side").addEventListener("click", injectthis)
+		_id("pane-side")[0].addEventListener("click", injectthis)
 		console.log("Listening silently...")
 	} catch (e) {
 		setTimeout(() => {
@@ -88,3 +144,4 @@ chrome.runtime.onMessage.addListener(
 		}
 	}
 )
+

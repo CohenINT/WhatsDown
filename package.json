@@ -1,33 +1,33 @@
 {
-  "name": "whatsdown",
-  "version": "0.1.0",
-  "description": "A Chrome extension to locally backup your WhatsApp chats",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./bin/start"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/codefeathers/whatsdown.git"
-  },
-  "keywords": [
-    "whatsapp",
-    "backup",
-    "local",
-    "chrome",
-    "extension"
-  ],
-  "author": "Muthu Kumar",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/codefeathers/whatsdown/issues"
-  },
-  "homepage": "https://github.com/codefeathers/whatsdown#readme",
-  "dependencies": {
-    "express": "^4.16.2",
-    "fs-web": "^1.0.1",
-    "nedb": "^1.8.0",
-    "nedb-promise": "^2.0.1"
-  }
+	"name": "whatsdown",
+	"version": "0.1.0",
+	"description": "A Chrome extension to locally backup your WhatsApp chats",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node ./bin/start"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/codefeathers/whatsdown.git"
+	},
+	"keywords": [
+		"whatsapp",
+		"backup",
+		"local",
+		"chrome",
+		"extension"
+	],
+	"author": "Muthu Kumar",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/codefeathers/whatsdown/issues"
+	},
+	"homepage": "https://github.com/codefeathers/whatsdown#readme",
+	"dependencies": {
+		"express": "^4.16.2",
+		"fs-web": "^1.0.1",
+		"nedb": "^1.8.0",
+		"nedb-promise": "^2.0.1"
+	}
 }

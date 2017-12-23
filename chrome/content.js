@@ -1,12 +1,6 @@
-var _class = (className) => {
-	return Array.prototype.slice.call(document.getElementsByClassName(className))
-}
-var _tag = (tagName) => {
-	return Array.prototype.slice.call(document.getElementsByTagName(tagName))
-}
-var _id = (idName) => {
-	return Array(document.getElementById(idName))
-}
+var _class = (className) => Array.prototype.slice.call(document.getElementsByClassName(className))
+var _tag = (tagName) => Array.prototype.slice.call(document.getElementsByTagName(tagName))
+var _id = (idName) => Array(document.getElementById(idName))
 
 // From StackOverflow.
 function toDataURL(url, callback) {

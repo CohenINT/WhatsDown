@@ -3,13 +3,15 @@ chatStore = [
 	{
 		chatId: String | Number,
 		header: {
-			name: String,
-			type: String,
+			name: String, // Chat name
+			type: 'Private' | 'Group',
 			icon: String,
 		},
 		content: [
 			{
-				messageId: String,
+				messageOrder: Number,
+				from: String | 'You', // Chat participant or sender name
+				fromSelf: true,
 				time: Date,
 				type: String,
 				text: String | Object,
@@ -22,11 +24,14 @@ chatStore = [
 // Browser model:
 message = {
 	header: {
-		name: String,
+		name: String, // Chat name
 		type: String,
 		icon: String,
 	},
 	content: {
+		messageOrder: Number,
+		from: String | 'You', // Chat participant or sender name
+		fromSelf: true,
 		time: Date,
 		type: 'text' | 'image',
 		text: String | Object,

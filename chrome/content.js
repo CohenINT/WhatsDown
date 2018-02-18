@@ -2,7 +2,7 @@
 var msgStore = [];
 
 function getBase64FromImageUrl(url) {
-	return new Promise(function(resolve, reject) {
+	return new Promise(function (resolve, reject) {
 		var img = new Image();
 		img.setAttribute('crossOrigin', 'anonymous');
 		img.src = url;
@@ -25,9 +25,9 @@ function getChatHeader() {
 	//TODO: This should return 'Group' if group is detected
 	msgHeader.type = 'Private';
 	return Promise.resolve(msgHeader);
-	
+
 	/* Commented till I find a better way to fetch chat icon */
-	
+
 	// iconUrl = $('#main header img').attr('src');
 	// return new Promise((resolve, reject) => {
 	// 	getBase64FromImageUrl(iconUrl)
@@ -42,15 +42,26 @@ function getChatHeader() {
 
 function getMessageContent(thisMessage) {
 	var content = new Object();
-	contentTime = $(thisMessage)
+	var dataPrePlainText = $(thisMessage)
 		.find('.copyable-text')
-		.attr('data-pre-plain-text')
+		.attr('data-pre-plain-text');
+	var messageClasses = $(thisMessage).attr('class');
+	if(messageClasses.indexOf('message-out') !== -1) {
+		content.from = 'You';
+		content.fromSelf = true;
+	} else {
+		content.from = dataPrePlainText
+			.split(']')[1]
+			.trim()
+			.slice(0, - 1);
+	}
+	contentTime = dataPrePlainText
 		.split(']')[0]
 		.replace('[', '')
 		.trim(); // 11:31 AM, 2/18/2018
-	content.time = moment(contentTime, 'hh:mm aa, MM/DD/YYYY')
+	content.time = moment(contentTime, 'hh:mm aa, MM/DD/YYYY');
 	content.type = 'text' || 'image';
-	content.text = $(thisMessage).find('.selectable-text').text()
+	content.text = $(thisMessage).find('.selectable-text').text();
 	content.replyTo = $(thisMessage)
 		.find('.quoted-mention')
 		.text() ?
@@ -58,7 +69,7 @@ function getMessageContent(thisMessage) {
 		.find('.quoted-mention')
 		.text() :
 		null;
-	return(content);
+	return (content);
 }
 
 function postToServer(msgCache) {
@@ -71,41 +82,38 @@ function postToServer(msgCache) {
 
 $('#pane-side').ready(() => {
 	// Start watching for messages
-	$(document)
-		.arrive(
-			'.message-chat',
-			thisMessage => {
-				var message = new Object();
-				getChatHeader()
-					.then(function(header) {
-						message.header = header
-					})
-					.then(function() {
-						message.content = getMessageContent(thisMessage)
-					})
-					.then(function() {
-						msgStore.push(message)
-					})
-					// When msgStore reaches 100 messages, push to server
-					// and reset msgStore = []
-					.then(function() {
-						if (msgStore.length > 10) {
-							var msgCache = msgStore;
-							msgStore = [];
-							postToServer(msgCache)
-						}
-					})
-					.catch(function(err) {
-						console.log('There was an error! You must report this:\n', err)
-					});
-			}
-		);
+	$(document).arrive('.message-chat', thisMessage => {
+		var message = new Object();
+		getChatHeader()
+			.then(function (header) {
+				message.header = header;
+			})
+			.then(function () {
+				message.content = getMessageContent(thisMessage);
+			})
+			.then(function () {
+				console.log(message);
+				msgStore.push(message);
+			})
+			// When msgStore reaches 100 messages, push to server
+			// and reset msgStore = []
+			.then(function () {
+				if (msgStore.length > 10) {
+					var msgCache = msgStore;
+					msgStore = [];
+					postToServer(msgCache);
+				}
+			})
+			.catch(function (err) {
+				console.log('There was an error! You must report this:\n', err);
+			});
+	});
 });
 
 chrome.runtime.onMessage.addListener(
 	function (request, sender, sendResponse) {
 		if (request.message === "clicked_browser_action") {
-			console.error("This doesn't do anything yet.")
+			console.error("This doesn't do anything yet.");
 		}
 	}
 )

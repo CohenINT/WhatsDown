@@ -4,9 +4,46 @@ An experiment in backing up your WhatsApp chats using the WhatsApp Web interface
 
 ## Current state
 
-UPDATE: A very preliminary version of the Chrome extension side of things works now. The server is being done now.
+A working Chrome extension and webserver exists. There's no webapp to read the messages and display yet, and the APIs for such haven't been implemented either.
 
-WhatsDown does not work right now. It's still in initial stages of development, and I can only spend so much time on it every month. I have no schedule on when it will be finally usable, but it will (probably) be ready some day. Feel free to raise issues if you need anything, or watch the repo to follow it.
+## Installation and use
+
+Clone this repository locally and install dependencies.
+
+```shell
+git clone https://github.com/codefeathers/whatsdown
+cd whatsdown
+npm install
+```
+
+Run the server (I recommend pm2 though).
+
+```shell
+node server
+```
+
+Using pm2:
+
+```shell
+npm install --global pm2
+pm2 server.js --name whatsdown-server # Add --watch if you're developing, as it will reload the server if you change files
+```
+
+Install the Chrome extension.
+
+- Open `chrome://extensions`
+- Enable Developer Mode
+- Click "Load unpacked extension..."
+- Browse to this repo, select the "Chrome" directory, and click "Open".
+- Open (or reload) WhatsApp Web.
+
+You're good to go. WhatsDown - Chrome extension will keep watching for changes and send it to our server. If you're developing, hot-reload exists, and will reload the current tab on your browser when you save changes to the extension. If your current tab is not WhatsApp Web, you'd have to do it manually.
+
+Once messages are sent for the first time, you should see a `store/Messages.db` file in the project folder's root. This is nedb's store.
+
+### Known issues
+
+Messages within the same minute can get jumbled up in the database because we don't have any order from WhatsApp. Some thought has to go into this before we do something useful with this. Until then... Send only one message a minute maybe? Seriously. We'll find a way soon.
 
 ## The idea
 
@@ -31,6 +68,8 @@ Since WhatsDown passively watches texts on WhatsApp Web, it is impossible to get
 There are still some unsolved problems, like how to assign a unique ID to each chat? I have worked out separating private chats from group chats, but there is no protection against two private chats with the same contact name, or two group chats with the same name and same members from messing up your chat history.
 
 ## Version History
+
+`v. 0.2.5` : A basic node server with `nedb` database now works.
 
 `v. 0.2.0` : Chrome extension now works. As new messages are loaded, they are parsed and stored as objects.
 

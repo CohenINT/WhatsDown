@@ -21,7 +21,7 @@ module.exports = {
         ],
         "semi": [
             "error",
-            "never"
+            "always"
         ],
         "no-console": "off",
         "no-undef": "off"

@@ -16,7 +16,7 @@ function getBase64FromImageUrl(url) {
 			resolve(chatIcon = dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
 		};
 	});
-};
+}
 
 function getChatHeader() {
 	headerNode = document.querySelectorAll('header')[1];
@@ -66,8 +66,8 @@ function getMessageContent(thisMessage) {
 		.find('.quoted-mention')
 		.text() ?
 		$(thisMessage)
-		.find('.quoted-mention')
-		.text() :
+			.find('.quoted-mention')
+			.text() :
 		null;
 	return (content);
 }
@@ -76,9 +76,9 @@ function postToServer(msgCache) {
 	// Push to store
 	axios
 		.post('http://localhost:1995/messages/add', msgCache)
-		.then(res => console.log('POSTed a batch of messages'))
+		.then(res => console.log('Posted a batch of messages', res))
 		.catch(err => console.log('There was an error posting messages!\n', err));
-};
+}
 
 $('#pane-side').ready(() => {
 	// Start watching for messages

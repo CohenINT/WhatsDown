@@ -1,13 +1,17 @@
 {
 	"manifest_version": 2,
 	"name": "WhatsDown",
-	"version": "0.0.1",
+	"version": "0.2.0",
 	"content_scripts": [
 		{
 		"matches": [
 			"<all_urls>"
 		],
 		"js": [
+			"external/jquery-3.3.1.min.js",
+			"external/arrive.js",
+			"external/moment.js",
+			"external/axios.js",
 			"content.js"
 		]
 		}

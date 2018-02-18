@@ -4,6 +4,8 @@ An experiment in backing up your WhatsApp chats using the WhatsApp Web interface
 
 ## Current state
 
+UPDATE: A very preliminary version of the Chrome extension side of things works now. The server is being done now.
+
 WhatsDown does not work right now. It's still in initial stages of development, and I can only spend so much time on it every month. I have no schedule on when it will be finally usable, but it will (probably) be ready some day. Feel free to raise issues if you need anything, or watch the repo to follow it.
 
 ## The idea
@@ -29,6 +31,8 @@ Since WhatsDown passively watches texts on WhatsApp Web, it is impossible to get
 There are still some unsolved problems, like how to assign a unique ID to each chat? I have worked out separating private chats from group chats, but there is no protection against two private chats with the same contact name, or two group chats with the same name and same members from messing up your chat history.
 
 ## Version History
+
+`v. 0.2.0` : Chrome extension now works. As new messages are loaded, they are parsed and stored as objects.
 
 `v. 0.1.1` : This entire enterprise is a wack-a-mole. Deal with one bug, two more arises. Putting the project on hold, because I have to get a life.
 

@@ -89,7 +89,7 @@ $('#pane-side').ready(() => {
 					// When msgStore reaches 100 messages, push to server
 					// and reset msgStore = []
 					.then(function() {
-						if (msgStore.length > 100) {
+						if (msgStore.length > 10) {
 							var msgCache = msgStore;
 							msgStore = [];
 							postToServer(msgCache)

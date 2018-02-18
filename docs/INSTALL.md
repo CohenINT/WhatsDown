@@ -1,5 +1,7 @@
 # Installation and use
 
+## [BACK](../README.md)
+
 Clone this repository locally and install dependencies.
 
 ```shell
@@ -36,3 +38,5 @@ Once messages are sent for the first time, you should see a `store/Messages.db` 
 ## Known issues
 
 Messages within the same minute can get jumbled up in the database because we don't have any order from WhatsApp. Some thought has to go into this before we do something useful with this. Until then... Send only one message a minute maybe? Seriously. We'll find a way soon.
+
+## [BACK](../README.md)

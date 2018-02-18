@@ -1,5 +1,7 @@
 # The idea
 
+## [BACK](../README.md)
+
 ## i. Background
 
 Whether you like it or not, WhatsApp is by far the most popular messaging application today. But it also requires you to keep a copy of every message you ever sent on your mobile device, indefinitely. At some point the store is going to grow large enough to fill your phone memory. I know it happened to me. WhatsApp has no solution to it. It simply grows in size until it crashes and then you're forced to let go of old messages. WhatsDown is an attempt to handle this issue.
@@ -19,3 +21,5 @@ Since WhatsDown passively watches texts on WhatsApp Web, it is impossible to get
 ## iv. Problems
 
 There are still some unsolved problems, like how to assign a unique ID to each chat? I have worked out separating private chats from group chats, but there is no protection against two private chats with the same contact name, or two group chats with the same name and same members from messing up your chat history.
+
+## [BACK](../README.md)
